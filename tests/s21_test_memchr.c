@@ -35,8 +35,8 @@ END_TEST
 START_TEST(test_s21_memchr_5) {
   char str1[] = "123";
   char str2 = ' ';
-  ck_assert_ptr_eq(s21_memchr(str1 + 5, str2, strlen(str1)),
-                   memchr(str1 + 5, str2, strlen(str1)));
+  ck_assert_ptr_eq(s21_memchr(str1, str2, strlen(str1)),
+                   memchr(str1, str2, strlen(str1)));
 }
 END_TEST
 

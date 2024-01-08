@@ -1,5 +1,3 @@
-#include <check.h>
-
 #include "s21_tests.h"
 
 START_TEST(test_s21_strncat_1) {
@@ -29,8 +27,8 @@ END_TEST
 START_TEST(test_s21_strncat_4) {
   char str1[] = "World!";
   char str2[30] = "Hello, ";
-  ck_assert_pstr_eq(s21_strncat(str2, str1 + 8, strlen(str2)),
-                    strncat(str2, str1 + 8, strlen(str2)));
+  ck_assert_pstr_eq(s21_strncat(str2, str1, strlen(str2)),
+                    strncat(str2, str1, strlen(str2)));
 }
 END_TEST
 

@@ -1,28 +1,22 @@
-#include <stdlib.h>
-
 #include "../s21_string.h"
 
-void* s21_insert(const char* src, const char* str, s21_size_t start_index) {
-  char* out = NULL;
-  if (src && str) {
-    size_t src_len = s21_strlen(src);
-    size_t str_len = s21_strlen(str);
+void *s21_insert(const char *src, const char *str, s21_size_t start_index) {
+  char *result = S21_NULL;
+  if (src != S21_NULL && start_index < s21_strlen(src) && str != S21_NULL) {
+    result = calloc(s21_strlen(src) + s21_strlen(str) + 1, sizeof(char));
 
-    out = (char *)calloc((src_len + str_len + 1), sizeof(char));
+    if (result) {
+      s21_size_t i = 0;
+      for (; i < start_index; i++) result[i] = src[i];
 
-    if (out && str && s21_strlen(src) >= start_index) {
-      s21_strncpy(out, src, start_index);
-      s21_strncpy(out + start_index, str, str_len);
-      s21_strncpy(out + start_index + str_len, src + start_index,
-                  src_len - start_index);
-      out[src_len + str_len] = '\0';
-    }
-  } else if (!str && src) {
-    size_t src_len = s21_strlen(src);
-    out = (char *)calloc((src_len + 1), sizeof(char));
-    if (out) {
-      s21_strncpy(out, src, src_len);
+      for (s21_size_t j = 0; str[j]; i++, j++) {
+        result[i] = str[j];
+      }
+
+      for (s21_size_t j = start_index; src[j]; i++, j++) {
+        result[i] = src[j];
+      }
     }
   }
-  return out;
+  return result;
 }

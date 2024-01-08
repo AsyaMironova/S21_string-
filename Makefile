@@ -6,7 +6,7 @@ TSRC=tests/*.c
 TOBJ=$(TSRC:.c=.o)
 LIB_NAME=s21_string.a
 NAME=s21_string
-UNAME:=$(shell uname -s)
+UNAME=$(shell uname -s)
 
 ifeq ($(UNAME), Linux)
 	LIBS=-lcheck -lm -lrt -lpthread -lsubunit
@@ -15,16 +15,13 @@ ifeq ($(UNAME), Darwin)
 	LIBS=-lcheck
 endif
 
-all: $(LIB_NAME) test clean
+all: clean $(LIB_NAME) test gcov_report
 
 clean:
-	rm -rf $(OBJ)
-	rm -rf $(TOBJ)
-	rm -f *.o
-	rm -f s21_string
+	rm -rf $(OBJ) $(TOBJ) s21_string report coverage.info *.o *.gcda *.gcno s21_tests $(LIB_NAME)
 
 test: $(OBJ) $(TOBJ)
-	$(CC) $^ -o $(NAME) $(LIBS)
+	$(CC) $^ $(CFLAGS) -o $(NAME) $(LIBS)
 	./$(NAME)
 
 $(LIB_NAME): $(OBJ)
@@ -38,17 +35,17 @@ $(TOBJ): $(TSRC)
 	$(CC) $(CFLAGS) -c $^
 	mv *.o tests
 
-
-rebuild: clean test
+rebuild: clean $(LIB_NAME) test
 
 check_style:
-	clang-format -n --style="Google" s21_string_functions/*.c
-	clang-format -n --style="Google" tests/*.c
+	clang-format -n --style="Google" s21_string_functions/*.c s21_string_functions/*.h tests/*.c *.h
 
 fix_style:
-	clang-format -i --style="Google" s21_string_functions/*.c
-	clang-format -i --style="Google" tests/*.c
+	clang-format -i --style="Google" s21_string_functions/*.c s21_string_functions/*.h tests/*.c *.h
 
 gcov_report:
-
-.PHONY: all clean test gcov_report
+	$(CC) $(CFLAGS) --coverage $(SRC) $(TSRC) $(LIBS) -o s21_tests
+	./s21_tests
+	lcov --capture --directory . --output-file coverage.info
+	genhtml coverage.info --output-directory report
+	open report/index.html

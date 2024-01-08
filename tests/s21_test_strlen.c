@@ -26,7 +26,7 @@ END_TEST
 
 START_TEST(test_s21_strlen_5) {
   char str1[] = "123";
-  ck_assert_uint_eq(s21_strlen(str1 + 5), strlen(str1 + 5));
+  ck_assert_uint_eq(s21_strlen(str1), strlen(str1));
 }
 END_TEST
 

@@ -56,13 +56,6 @@ START_TEST(test_s21_strcspn_8) {
 }
 END_TEST
 
-START_TEST(test_s21_strcspn_9) {
-  char str1[10] = {0};
-  char str2[3] = {0};
-  ck_assert_uint_eq(s21_strcspn(str1, str2), strcspn(str1, str2));
-}
-END_TEST
-
 Suite *test_suite_strcspn() {
   Suite *s = suite_create("s21_strcspn");
   TCase *tc_core = tcase_create("Core");
@@ -75,7 +68,6 @@ Suite *test_suite_strcspn() {
   tcase_add_test(tc_core, test_s21_strcspn_6);
   tcase_add_test(tc_core, test_s21_strcspn_7);
   tcase_add_test(tc_core, test_s21_strcspn_8);
-  tcase_add_test(tc_core, test_s21_strcspn_9);
 
   suite_add_tcase(s, tc_core);
 

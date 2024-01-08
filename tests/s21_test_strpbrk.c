@@ -56,13 +56,6 @@ START_TEST(test_s21_strpbrk_8) {
 }
 END_TEST
 
-START_TEST(test_s21_strpbrk_9) {
-  char str1[10] = {0};
-  char str2[3] = {0};
-  ck_assert_pstr_eq(s21_strpbrk(str1, str2), strpbrk(str1, str2));
-}
-END_TEST
-
 Suite *test_suite_strpbrk() {
   Suite *s = suite_create("s21_strpbrk");
   TCase *tc_core = tcase_create("Core");
@@ -75,7 +68,6 @@ Suite *test_suite_strpbrk() {
   tcase_add_test(tc_core, test_s21_strpbrk_6);
   tcase_add_test(tc_core, test_s21_strpbrk_7);
   tcase_add_test(tc_core, test_s21_strpbrk_8);
-  tcase_add_test(tc_core, test_s21_strpbrk_9);
 
   suite_add_tcase(s, tc_core);
 

@@ -1,174 +1,321 @@
-#include <stdio.h>
-
 #include "s21_tests.h"
 
-START_TEST(test_case1) {
-  char buffer[100] = {0};
-  char buffer1[100] = {0};
-  int num = 5;
-  sprintf(buffer, "Number: %d", num);
-  s21_sprintf(buffer1, 100, "Number: %d", num);
-  ck_assert_str_eq(buffer, buffer1);
+START_TEST(s21_test_sprintf_1) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "Hello, World!");
+  s21_sprintf(actualResult, "Hello, World!");
+  ck_assert_str_eq(expectedResult, actualResult);
 }
 END_TEST
 
-START_TEST(test_case2) {
-  char buffer[100] = {0};
-  char buffer1[100] = {0};
-  float f = 0.6581065f;
-  sprintf(buffer, "Float: %.2f", f);
-  s21_sprintf(buffer1, 100, "Float: %.2f", f);
-  ck_assert_str_eq(buffer, buffer1);
+START_TEST(s21_test_sprintf_2) {
+  char firstString[100] = {0};
+  char secondString[100] = {0};
+  int expectedResult = sprintf(firstString, "Hello, World!");
+  int actualResult = s21_sprintf(secondString, "Hello, World!");
+  ck_assert_int_eq(expectedResult, actualResult);
 }
 END_TEST
 
-START_TEST(test_case3) {
-  char buffer[100] = {0};
-  char buffer1[100] = {0};
-  char d1[4] = "abc";
-  printf("%s\n", d1);
-  sprintf(buffer, "%s", d1);
-  s21_sprintf(buffer1, 1000, "%s", d1);
-  ck_assert_str_eq(buffer, buffer1);
+START_TEST(s21_test_sprintf_3) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "I'm %d years old...", 22);
+  s21_sprintf(actualResult, "I'm %d years old...", 22);
+  ck_assert_str_eq(expectedResult, actualResult);
 }
 END_TEST
 
-START_TEST(test_case4) {
-  char buffer[100] = {0};
-  char buffer1[100] = {0};
-  sprintf(buffer, "Number: %d", 1000000);
-  s21_sprintf(buffer1, 100, "Number: %d", 1000000);
-  ck_assert_str_eq(buffer, buffer1);
+START_TEST(s21_test_sprintf_4) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "The temperature today is %d degrees centigrade...",
+          -30);
+  s21_sprintf(actualResult, "The temperature today is %d degrees centigrade...",
+              -30);
+  ck_assert_str_eq(expectedResult, actualResult);
 }
 END_TEST
 
-START_TEST(test_case5) {
-  char buffer[100] = {0};
-  char buffer1[100] = {0};
-  sprintf(buffer, "Empty string: %s", "");
-  s21_sprintf(buffer1, 100, "Empty string: %s", "");
-  ck_assert_str_eq(buffer, buffer1);
+START_TEST(s21_test_sprintf_5) {
+  char firstString[100] = {0};
+  char secondString[100] = {0};
+  int expectedResult = sprintf(
+      firstString, "The temperature today is %d degrees centigrade...", -30);
+  int actualResult = s21_sprintf(
+      secondString, "The temperature today is %d degrees centigrade...", -30);
+  ck_assert_int_eq(expectedResult, actualResult);
 }
 END_TEST
 
-START_TEST(test_case6) {
-  char buffer[100] = {0};
-  char buffer1[100] = {0};
-  int oct = 20;
-  sprintf(buffer, "Empty string: %x %o %i %s", oct, oct, oct, "124fdgbf");
-  s21_sprintf(buffer1, 100, "Empty string: %x %o %i %s", oct, oct, oct,
-              "124fdgbf");
-  ck_assert_str_eq(buffer, buffer1);
+START_TEST(s21_test_sprintf_6) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "I have a fever of %d...", 37);
+  s21_sprintf(actualResult, "I have a fever of %d...", 37);
+  ck_assert_str_eq(expectedResult, actualResult);
 }
 END_TEST
 
-START_TEST(test_case7) {
-  char buffer[100] = {0};
-  char buffer1[100] = {0};
-  double d1 = 123.456;
-  sprintf(buffer, "%e", d1);
-  s21_sprintf(buffer1, 100, "%e", d1);
-  ck_assert_str_eq(buffer, buffer1);
+START_TEST(s21_test_sprintf_7) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "String: %ccc%%...", 'q');
+  s21_sprintf(actualResult, "String: %ccc%%...", 'q');
+  ck_assert_str_eq(expectedResult, actualResult);
 }
 END_TEST
 
-START_TEST(test_case8) {
-  char buffer[100] = {0};
-  char buffer1[100] = {0};
-  double d1 = 123.4567, d2 = 1234567.34567;
-  sprintf(buffer, "%g\n%g", d1, d2);
-  s21_sprintf(buffer1, 100, "%g\n%g", d1, d2);
-  ck_assert_str_eq(buffer, buffer1);
-}
-
-START_TEST(test_case9) {
-  char buffer[100] = {0};
-  char buffer1[100] = {0};
-  unsigned int d1 = 123;
-  unsigned int d2 = 256;
-  sprintf(buffer, "%#x, %#x", d1, d2);
-  s21_sprintf(buffer1, 100, "%#x, %#x", d1, d2);
-  ck_assert_str_eq(buffer, buffer1);
+START_TEST(s21_test_sprintf_8) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "String: % d...", 1);
+  s21_sprintf(actualResult, "String: % d...", 1);
+  ck_assert_str_eq(expectedResult, actualResult);
 }
 END_TEST
 
-START_TEST(test_case10) {
-  char buffer[100] = {0};
-  char buffer1[100] = {0};
-  double d1 = 123.4567, d2 = 1234567.34567;
-  sprintf(buffer, "%g\n%g", d1, d2);
-  s21_sprintf(buffer1, 100, "%g\n%g", d1, d2);
-  ck_assert_str_eq(buffer, buffer1);
-}
-END_TEST
-START_TEST(test_case11) {
-  char buffer[100] = {0};
-  char buffer1[100] = {0};
-  int d1 = -123;
-  sprintf(buffer, "%06d", d1);
-  s21_sprintf(buffer1, 100, "%06d", d1);
-  ck_assert_str_eq(buffer, buffer1);
+START_TEST(s21_test_sprintf_9) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "String:_% 10c...", 63);
+  s21_sprintf(actualResult, "String:_% 10c...", 63);
+  ck_assert_str_eq(expectedResult, actualResult);
 }
 END_TEST
 
-START_TEST(test_case12) {
-  char buffer[100] = {0};
-  char buffer1[100] = {0};
-  int d1 = 123, d2 = 42, d3 = 1543;
-  sprintf(buffer, "%-6d%-6d%-6d\n", d1, d2, d3);
-  s21_sprintf(buffer1, 100, "%-6d%-6d%-6d\n", d1, d2, d3);
-  ck_assert_str_eq(buffer, buffer1);
+START_TEST(s21_test_sprintf_10) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "String:_%013d...", 6);
+  s21_sprintf(actualResult, "String:_%013d...", 6);
+  ck_assert_str_eq(expectedResult, actualResult);
 }
 END_TEST
 
-START_TEST(test_case13) {
-  char buffer[100] = {0};
-  char buffer1[100] = {0};
-  long long int d1 = 123;
-  sprintf(buffer, "%lld %lld", d1, d1);
-  s21_sprintf(buffer1, 100, "%lld %lld", d1, d1);
-  ck_assert_str_eq(buffer, buffer1);
+START_TEST(s21_test_sprintf_11) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "String:_%13c...", 64);
+  s21_sprintf(actualResult, "String:_%13c...", 64);
+  ck_assert_str_eq(expectedResult, actualResult);
 }
 END_TEST
 
-START_TEST(test_case14) {
-  char buffer[100] = {0};
-  char buffer1[100] = {0};
-  char d1[4] = "abc";
-  sprintf(buffer, "%p", d1);
-  s21_sprintf(buffer1, 100, "%p", d1);
-  ck_assert_str_eq(buffer, buffer1);
+START_TEST(s21_test_sprintf_12) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "String:_%+08d...", 64);
+  s21_sprintf(actualResult, "String:_%+08d...", 64);
+  ck_assert_str_eq(expectedResult, actualResult);
 }
 END_TEST
 
-START_TEST(test_case15) {
-  char buffer[100] = {0};
-  char buffer1[100] = {0};
-  char d1 = 'g', d2 = 5;
-
-  sprintf(buffer, "%hhd %hhd", d1, d2);
-  s21_sprintf(buffer1, 100, "%hhd %hhd", d1, d2);
-  ck_assert_str_eq(buffer, buffer1);
+START_TEST(s21_test_sprintf_13) {
+  char firstString[100] = {0};
+  char secondString[100] = {0};
+  int expectedResult = sprintf(firstString, "String:_%+08d...", 1000 - 7);
+  int actualResult = s21_sprintf(secondString, "String:_%+08d...", 1000 - 7);
+  ck_assert_int_eq(expectedResult, actualResult);
 }
 END_TEST
+
+START_TEST(s21_test_sprintf_14) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "String:_%-08d...", 64);
+  s21_sprintf(actualResult, "String:_%-08d...", 64);
+  ck_assert_str_eq(expectedResult, actualResult);
+}
+END_TEST
+
+START_TEST(s21_test_sprintf_15) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "String:_% -+08c...", 65);
+  s21_sprintf(actualResult, "String:_% -+08c...", 65);
+  ck_assert_str_eq(expectedResult, actualResult);
+}
+END_TEST
+
+START_TEST(s21_test_sprintf_16) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "String:_%-+08d...", 666);
+  s21_sprintf(actualResult, "String:_%-+08d...", 666);
+  ck_assert_str_eq(expectedResult, actualResult);
+}
+END_TEST
+
+START_TEST(s21_test_sprintf_17) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "Number %%e: %e...", 0.0001);
+  s21_sprintf(actualResult, "Number %%e: %e...", 0.0001);
+  ck_assert_str_eq(expectedResult, actualResult);
+}
+END_TEST
+
+START_TEST(s21_test_sprintf_18) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "Number %%e: %e...", 12345.678);
+  s21_sprintf(actualResult, "Number %%e: %e...", 12345.678);
+  ck_assert_str_eq(expectedResult, actualResult);
+}
+END_TEST
+
+START_TEST(s21_test_sprintf_19) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "Number %%E: %E...", -6.0);
+  s21_sprintf(actualResult, "Number %%E: %E...", -6.0);
+  ck_assert_str_eq(expectedResult, actualResult);
+}
+END_TEST
+
+START_TEST(s21_test_sprintf_20) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "Number %%E: %E %e %E...", 0.00305305, 0.080851,
+          0.0000246);
+  s21_sprintf(actualResult, "Number %%E: %E %e %E...", 0.00305305, 0.080851,
+              0.0000246);
+  ck_assert_str_eq(expectedResult, actualResult);
+}
+END_TEST
+
+START_TEST(s21_test_sprintf_21) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "Number %%f: %f %f %f %f...", 0.0305, 0.3050, 123.123,
+          98.108707);
+  s21_sprintf(actualResult, "Number %%f: %f %f %f %f...", 0.0305, 0.3050,
+              123.123, 98.108707);
+  ck_assert_str_eq(expectedResult, actualResult);
+}
+END_TEST
+
+START_TEST(s21_test_sprintf_22) {
+  char firstString[100] = {0};
+  char secondString[100] = {0};
+  int expectedResult = sprintf(firstString, "Number %%f: %f %f %f %f...",
+                               0.0305, 0.3050, 123.123, 98.108707);
+  int actualResult = s21_sprintf(secondString, "Number %%f: %f %f %f %f...",
+                                 0.0305, 0.3050, 123.123, 98.108707);
+  ck_assert_int_eq(expectedResult, actualResult);
+}
+END_TEST
+
+START_TEST(s21_test_sprintf_23) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "Number %%f: %f...", 0.0305);
+  s21_sprintf(actualResult, "Number %%f: %f...", 0.0305);
+  ck_assert_str_eq(expectedResult, actualResult);
+}
+END_TEST
+
+START_TEST(s21_test_sprintf_24) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "Number %%f: %.2f %.0f...", 1.11111101, 1.234);
+  s21_sprintf(actualResult, "Number %%f: %.2f %0.f...", 1.11111101, 1.234);
+  ck_assert_str_eq(expectedResult, actualResult);
+}
+END_TEST
+
+START_TEST(s21_test_sprintf_25) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  char testString[] = "Hello, World!";
+  sprintf(expectedResult, "String: \"%s\"...", testString);
+  s21_sprintf(actualResult, "String: \"%s\"...", testString);
+  ck_assert_str_eq(expectedResult, actualResult);
+}
+END_TEST
+
+START_TEST(s21_test_sprintf_26) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "Number %%u: %u...", UINT_MAX + 1);
+  s21_sprintf(actualResult, "Number %%u: %u...", UINT_MAX + 1);
+  ck_assert_str_eq(expectedResult, actualResult);
+}
+END_TEST
+
+START_TEST(s21_test_sprintf_27) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "Number %%hd: %hd...", SHRT_MAX);
+  s21_sprintf(actualResult, "Number %%hd: %hd...", SHRT_MAX);
+  ck_assert_str_eq(expectedResult, actualResult);
+}
+END_TEST
+
+START_TEST(s21_test_sprintf_28) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "Number %%ld: %ld...", LONG_MAX);
+  s21_sprintf(actualResult, "Number %%ld: %ld...", LONG_MAX);
+  ck_assert_str_eq(expectedResult, actualResult);
+}
+END_TEST
+
+START_TEST(s21_test_sprintf_29) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "Number %%lu: %lu...", ULONG_MAX + 1);
+  s21_sprintf(actualResult, "Number %%lu: %lu...", ULONG_MAX + 1);
+  ck_assert_str_eq(expectedResult, actualResult);
+}
+END_TEST
+
+START_TEST(s21_test_sprintf_30) {
+  char expectedResult[100] = {0};
+  char actualResult[100] = {0};
+  sprintf(expectedResult, "Number %%su: %hu...", USHRT_MAX + 1);
+  s21_sprintf(actualResult, "Number %%su: %hu...", USHRT_MAX + 1);
+  ck_assert_str_eq(expectedResult, actualResult);
+}
+END_TEST
+
 Suite *test_suite_sprintf() {
   Suite *s = suite_create("s21_sprintf");
   TCase *tc_core = tcase_create("Core");
-  tcase_add_test(tc_core, test_case1);
-  tcase_add_test(tc_core, test_case2);
-  tcase_add_test(tc_core, test_case3);
-  tcase_add_test(tc_core, test_case4);
-  tcase_add_test(tc_core, test_case5);
-  tcase_add_test(tc_core, test_case6);
-  tcase_add_test(tc_core, test_case7);
-  tcase_add_test(tc_core, test_case8);
-  tcase_add_test(tc_core, test_case9);
-  tcase_add_test(tc_core, test_case10);
-  tcase_add_test(tc_core, test_case11);
-  tcase_add_test(tc_core, test_case12);
-  tcase_add_test(tc_core, test_case13);
-  tcase_add_test(tc_core, test_case14);
-  tcase_add_test(tc_core, test_case15);
+
+  tcase_add_test(tc_core, s21_test_sprintf_1);
+  tcase_add_test(tc_core, s21_test_sprintf_2);
+  tcase_add_test(tc_core, s21_test_sprintf_3);
+  tcase_add_test(tc_core, s21_test_sprintf_4);
+  tcase_add_test(tc_core, s21_test_sprintf_5);
+  tcase_add_test(tc_core, s21_test_sprintf_6);
+  tcase_add_test(tc_core, s21_test_sprintf_7);
+  tcase_add_test(tc_core, s21_test_sprintf_8);
+  tcase_add_test(tc_core, s21_test_sprintf_9);
+  tcase_add_test(tc_core, s21_test_sprintf_10);
+  tcase_add_test(tc_core, s21_test_sprintf_11);
+  tcase_add_test(tc_core, s21_test_sprintf_12);
+  tcase_add_test(tc_core, s21_test_sprintf_13);
+  tcase_add_test(tc_core, s21_test_sprintf_14);
+  tcase_add_test(tc_core, s21_test_sprintf_15);
+  tcase_add_test(tc_core, s21_test_sprintf_16);
+  tcase_add_test(tc_core, s21_test_sprintf_17);
+  tcase_add_test(tc_core, s21_test_sprintf_18);
+  tcase_add_test(tc_core, s21_test_sprintf_19);
+  tcase_add_test(tc_core, s21_test_sprintf_20);
+  tcase_add_test(tc_core, s21_test_sprintf_21);
+  tcase_add_test(tc_core, s21_test_sprintf_22);
+  tcase_add_test(tc_core, s21_test_sprintf_23);
+  tcase_add_test(tc_core, s21_test_sprintf_24);
+  tcase_add_test(tc_core, s21_test_sprintf_25);
+  tcase_add_test(tc_core, s21_test_sprintf_26);
+  tcase_add_test(tc_core, s21_test_sprintf_27);
+  tcase_add_test(tc_core, s21_test_sprintf_28);
+  tcase_add_test(tc_core, s21_test_sprintf_29);
+  tcase_add_test(tc_core, s21_test_sprintf_30);
+
   suite_add_tcase(s, tc_core);
   return s;
 }

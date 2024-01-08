@@ -1,5 +1,3 @@
-#include <check.h>
-
 #include "s21_tests.h"
 
 START_TEST(test_s21_memcpy_1) {

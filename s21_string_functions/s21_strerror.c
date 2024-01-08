@@ -1,11 +1,11 @@
 #include <stdio.h>
-#include <string.h>  ///УБРАТЬ КОГДА ГОТОВ SPRINTF
 
 #include "../s21_string.h"
 
 #if defined(__APPLE__)
-#define MAX_ERROR 106
-#define MIN_ERROR 1
+#define MAX_ERROR 107
+#define MIN_ERROR -1
+#define ERROR "Unknown error:"
 const char *s21_error[] = {"Undefined error: 0",
                            "Operation not permitted",
                            "No such file or directory",
@@ -115,8 +115,9 @@ const char *s21_error[] = {"Undefined error: 0",
                            "Interface output queue is full"};
 
 #elif defined(__linux__)
-#define MAX_ERROR 133
-#define MIN_ERROR 1
+#define MAX_ERROR 134
+#define MIN_ERROR -1
+#define ERROR "Unknown error"
 const char *s21_error[] = {"Success",
                            "Operation not permitted",
                            "No such file or directory",
@@ -255,12 +256,11 @@ const char *s21_error[] = {"Success",
 
 char *s21_strerror(int errnum) {
   char *result = 0;
-  if (MIN_ERROR <= errnum && errnum <= MAX_ERROR) {
+  if (MIN_ERROR < errnum && errnum < MAX_ERROR) {
     result = (char *)s21_error[errnum];
   } else {
-    char result_arr[100] = {'\0'};
-    sprintf(result_arr, "Unknown error: %d",
-            errnum);  // заменить на НАШ s21_sprintf
+    static char result_arr[100] = {0};
+    s21_sprintf(result_arr, "%s %d", ERROR, errnum);
     result = result_arr;
   }
   return result;
